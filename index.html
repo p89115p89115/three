@@ -8,7 +8,7 @@
     <div id="stats"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r16/Stats.min.js"></script>
-    <script src="./DeviceOrientationControls.js"></script>
+    <script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/controls/DeviceOrientationControls.js"></script>
  <script >
 //import { OrbitControls } from '../lib/OrbitControls.js'
 //import { OrbitControls } from ''
@@ -133,26 +133,15 @@ function init() {
 function render() {
   stats.update()
   cameraControl.update()
+  
   if (camera instanceof THREE.Camera) {
                 camera.position.set(20, 60, 10)
                 camera.lookAt(scene.position)
                 //lookAtMesh.position.copy(new THREE.Vector3(x, 10, 0));
-  }
-  requestAnimationFrame(render)
-
-  renderer.render(scene, camera)
-}
-
-window.addEventListener('resize', function() {
-  camera.aspect = window.innerWidth / window.innerHeight
-  camera.updateProjectionMatrix()
-  renderer.setSize(window.innerWidth, window.innerHeight)
-})
-
-init()
-render()
-   
-if(window.DeviceOrientationEvent) {
+            }
+  
+  
+  if(window.DeviceOrientationEvent) {
   window.addEventListener('deviceorientation', function(event) {
   var a = document.getElementById('alpha'),
         b = document.getElementById('beta'),
@@ -164,11 +153,25 @@ if(window.DeviceOrientationEvent) {
   a.innerHTML = Math.round(alpha);
   b.innerHTML = Math.round(beta);
   g.innerHTML = Math.round(gamma);
-
+  camera.position.set(a, b, g)
     }, false);
 }else{
     document.querySelector('body').innerHTML = '你的瀏覽器不支援喔';
 }
+  requestAnimationFrame(render)
+  renderer.render(scene, camera)
+}
+
+window.addEventListener('resize', function() {
+  camera.aspect = window.innerWidth / window.innerHeight
+  camera.updateProjectionMatrix()
+  renderer.setSize(window.innerWidth, window.innerHeight)
+})
+
+init()
+render()
+
+
 
     </script>
     alpha:<span id="alpha"></span><br/>
