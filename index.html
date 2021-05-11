@@ -153,11 +153,12 @@ function render() {
   a.innerHTML = Math.round(alpha);
   b.innerHTML = Math.round(beta);
   g.innerHTML = Math.round(gamma);
-  camera.position.set(a, b, g)
+  
     }, false);
 }else{
     document.querySelector('body').innerHTML = '你的瀏覽器不支援喔';
 }
+  camera.position.set(a, b, g)
   requestAnimationFrame(render)
   renderer.render(scene, camera)
 }
