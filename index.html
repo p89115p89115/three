@@ -134,6 +134,7 @@ function render() {
   stats.update()
   cameraControl.update()
   requestAnimationFrame(render)
+  camera.lookAt(scene.position)
   renderer.render(scene, camera)
 }
 
