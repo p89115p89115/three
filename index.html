@@ -10,10 +10,14 @@
     <div id="stats"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r16/Stats.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three-orbitcontrols@2.110.3/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/device-orientation-controls@1.1.0/device-orientation-controls.js"></script>
    
-    <script type="module">
-import { OrbitControls } from '../../lib/OrbitControls.js'
-import { DeviceOrientationControls } from '../../lib/DeviceOrientationControls.js';
+ <script type="module">
+//import { OrbitControls } from '../lib/OrbitControls.js'
+//import { OrbitControls } from ''
+
+//import { DeviceOrientationControls } from '../lib/DeviceOrientationControls.js';
 
 
 let renderer, scene, camera
@@ -101,7 +105,7 @@ function init() {
   renderer.setSize(window.innerWidth, window.innerHeight)
 
   // 建立 OrbitControls
-  cameraControl = new DeviceOrientationControls( camera );
+  cameraControl = new DeviceOrientationController( camera );
   //cameraControl = new OrbitControls(camera, renderer.domElement)
   //cameraControl.enableDamping = true // 啟用阻尼效果
   //cameraControl.dampingFactor = 0.25 // 阻尼系數
