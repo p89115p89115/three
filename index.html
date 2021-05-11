@@ -134,11 +134,7 @@ function render() {
   stats.update()
   cameraControl.update()
   requestAnimationFrame(render)
-    if (camera instanceof THREE.Camera) {
-                camera.position.set(20, 60, 10)
-                camera.lookAt(scene.position)
-                //lookAtMesh.position.copy(new THREE.Vector3(x, 10, 0));
-            }
+
   renderer.render(scene, camera)
 }
 
