@@ -136,8 +136,8 @@ function render() {
   
   //相機固定看一個點
   if (camera instanceof THREE.Camera) {
-               // camera.position.set(20, 60, 10)
-                //camera.lookAt(scene.position)
+                camera.position.set(20, 60, 10)
+                camera.lookAt(scene.position)
                 //lookAtMesh.position.copy(new THREE.Vector3(x, 10, 0));
             }
   
@@ -159,7 +159,7 @@ function render() {
 }else{
     document.querySelector('body').innerHTML = '你的瀏覽器不支援喔';
 }
-  camera.position.set(20, 60, 10)
+  //camera.position.set(20, 60, 10)
   requestAnimationFrame(render)
   renderer.render(scene, camera)
 }
