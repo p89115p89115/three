@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Day 06 - OrbitControls、stats.js</title>
+    <title>Test</title>
     <link rel="stylesheet" href="./index.css" />
   </head>
   <body>
@@ -133,15 +133,43 @@ function init() {
 function render() {
   stats.update()
   cameraControl.update()
+
+  //相機固定看一個點
+ // if (camera instanceof THREE.Camera) {
+                //camera.position.set(20, 60, 10)
+                //camera.lookAt(scene.position)
+                //lookAtMesh.position.copy(new THREE.Vector3(x, 10, 0));
+  //          }
+  
+  //偵測陀螺儀數值，可以用這邊來做相機移動
+/*   if(window.DeviceOrientationEvent) {
+  window.addEventListener('deviceorientation', function(event) {
+  var a = document.getElementById('alpha'),
+        b = document.getElementById('beta'),
+        g = document.getElementById('gamma'),
+        alpha = event.alpha,
+        beta = event.beta,
+        gamma = event.gamma;
+
+  a.innerHTML = Math.round(alpha);
+  b.innerHTML = Math.round(beta);
+  g.innerHTML = Math.round(gamma);
+  
+    }, false);
+    }else{
+    document.querySelector('body').innerHTML = '你的瀏覽器不支援喔';
+} */
+  //camera.position.set(20, 60, 10)
   requestAnimationFrame(render)
   renderer.render(scene, camera)
 }
 
-window.addEventListener('resize', function() {
+/* window.addEventListener('resize', function() {
   camera.aspect = window.innerWidth / window.innerHeight
   camera.updateProjectionMatrix()
   renderer.setSize(window.innerWidth, window.innerHeight)
-})
+}
+) */
 
 init()
 render()
@@ -149,5 +177,8 @@ render()
 
 
     </script>
+    alpha:<span id="alpha"></span><br/>
+    beta:<span id="beta"></span><br/>
+    gamma:<span id="gamma"></span><br/>
   </body>
 </html>
