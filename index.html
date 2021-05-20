@@ -142,7 +142,7 @@ function render() {
   //          }
   
   //偵測陀螺儀數值，可以用這邊來做相機移動
-/*   if(window.DeviceOrientationEvent) {
+   if(window.DeviceOrientationEvent) {
   window.addEventListener('deviceorientation', function(event) {
   var a = document.getElementById('alpha'),
         b = document.getElementById('beta'),
@@ -158,18 +158,18 @@ function render() {
     }, false);
     }else{
     document.querySelector('body').innerHTML = '你的瀏覽器不支援喔';
-} */
+} 
   //camera.position.set(20, 60, 10)
   requestAnimationFrame(render)
   renderer.render(scene, camera)
 }
 
-/* window.addEventListener('resize', function() {
+ window.addEventListener('resize', function() {
   camera.aspect = window.innerWidth / window.innerHeight
   camera.updateProjectionMatrix()
   renderer.setSize(window.innerWidth, window.innerHeight)
 }
-) */
+) 
 
 init()
 render()
