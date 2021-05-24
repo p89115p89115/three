@@ -191,129 +191,34 @@ let ismousedown = 0;
 document.addEventListener('keydown', handleKeydown, false);
 
 // 添加鼠标移动时事件
-document.addEventListener('mousemove', handleMousemove, false);
-document.addEventListener('touchmove', handleMousemove, false);
+
 // 添加鼠标进入页面时初始化鼠标位置
-document.addEventListener('mousedown', initMousePosition, false);
-document.addEventListener('touchstart', initMousePosition, false);
+container.addEventListener('touchstart', onDocumentTouchStart, false);
+container.addEventListener('touchmove', onDocumentTouchMove, false);
 
-document.addEventListener('mouseup', MouseUp, false);
-document.addEventListener('touchend', MouseUp, false);
+function onDocumentTouchStart(event) {
 
-// 处理按键
-function handleKeydown(e) {
-    var e = e || window.event;
-    var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+if (event.touches.length === 1) {
 
-    if ('37, 38, 39, 40, 65, 87, 68, 83'.indexOf(keyCode) === -1) {
-        return;
-    } else {
-        switch (e.keyCode) {
-            case 37:
-            case 65:
-                CameraMove('left');
-                break;
-            case 38:
-            case 87:
-                CameraMove('forward');
-                break;
-            case 39:
-            case 68:
-                CameraMove('right');
-                break;
-            case 83:
-            case 40:
-                CameraMove('backward');
-                break;
-        }
-    }
+    var touch2 = event.touches[0];
+    mouse.x = (touch2.pageX / window.innerWidth) * 2 - 1;
+    mouse.y = -(touch2.pageY / window.innerHeight) * 2 + 1;
+
 }
 
-// 照相机移动计算
-function CameraMove(direction) {
-    var x, y;
-    var oX = camera.position.x, oY = camera.position.y;
-    switch (direction) {
-        case 'left':
-            x = oX - move * Math.cos(theta);
-            y = oY + move * Math.sin(theta);
-            break;
-        case 'forward':
-            x = oX + move * Math.sin(theta);
-            y = oY + move * Math.cos(theta);
-            break;
-        case 'right':
-            x = oX + move * Math.cos(theta);
-            y = oY - move * Math.sin(theta);
-            break;
-        case 'backward':
-            x = oX - move * Math.sin(theta);
-            y = oY - move * Math.cos(theta);
-            break;
-    }
-    camera.position.x = x;
-    camera.position.y = y;
-    console.log("CameraMove");
 }
 
-// 初始化鼠标移动值
-function initMousePosition(e) {
-    mouseX = getMousePos(e || window.event);
-    ismousedown = 1;
-    console.log("mousedown");
-   
+function onDocumentTouchMove(event) {
+
+if (event.touches.length === 1) {
+
+    event.preventDefault();
+
+    mouse.x = event.touches[0].pageX - windowHalfX;
+    mouse.y = event.touches[0].pageY - windowHalfY;
+
 }
 
-function MouseUp(e) {
-  ismousedown  = 0;
-    console.log("MouseUp");
-   
-}
-
-// 获取鼠标坐标
-function getMousePos(event) {
-    var e = event || window.event;
-    var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
-    var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
-    var x = e.pageX || e.clientX + scrollX;
-    var y = e.pageY || e.clientY + scrollY;
-    return { 'x': x, 'y': y };
-}
-
-// 处理鼠标移动
-function handleMousemove(e) {
-    var e = e || window.event;
-    // 获取鼠标x坐标
-    var newMouseX = getMousePos(e).x;
-    // 若值无效，更新坐标然后返回
-    if (Number.isNaN((newMouseX - mouseX) / r))
-     { 
-       mouseX = newMouseX;
-       console.log("isNaN");
-      return; 
-    }
-    // 更新视角以及坐标位置
-    theta += (newMouseX - mouseX) / r;
-    mouseX = newMouseX;
-
-    //console.log("handleMousemove");
-    // 更新照相机焦点
-    renderCameraLookat();
-}
-
-// 更新照相机焦点
-function renderCameraLookat() {
-    //camera.position.set(new THREE.Vector3(camera.position.x + far * Math.sin(theta), camera.position.y + far * Math.cos(theta), 10));
-    //camera.position.set(20, camera.position.y + far , 10);
-
-    //camera.position.set(20, 60, 10)
-    //camera.position.set(20, 60, 10)
-    camera.lookAt(0,0,0)
-    if(ismousedown == 1)
-    {
-      console.log("ismousedown :"+ismousedown);
-      camera.position.set(camera.position.x + move * Math.sin(theta), camera.position.y + move * Math.cos(theta), 10);
-    }
 }
 
     </script>
