@@ -191,33 +191,91 @@ let ismousedown = 0;
 // 添加鼠标移动时事件
 
 // 添加鼠标进入页面时初始化鼠标位置
+document.body.appendChild(renderer.domElement);
 document.addEventListener('touchstart', onDocumentTouchStart, false);
 document.addEventListener('touchmove', onDocumentTouchMove, false);
+document.addEventListener('touchend', onDocumentTouchEnd, false);
 
-function onDocumentTouchStart(event) {
+function onDocumentTouchStart( event ) {
 
-if (event.touches.length === 1) {
+isUserInteracting = true;
+var clientX = event.clientX || event.touches[ 0 ].clientX;
+var clientY = event.clientY || event.touches[ 0 ].clientY;
+onMouseDownMouseX = clientX;
+onMouseDownMouseY = clientY;
+onMouseDownLon = lon;
+onMouseDownLat = lat;
 
-    var touch2 = event.touches[0];
-    mouse.x = (touch2.pageX / window.innerWidth) * 2 - 1;
-    mouse.y = -(touch2.pageY / window.innerHeight) * 2 + 1;
 
+if ( this.domElement !== document ) {
+
+this.domElement.focus();
+
+}
+
+event.preventDefault();   //防止违约
+event.stopPropagation();   //停止传播
+
+
+if ( this.activeLook ) {
+  var touch = event.targetTouches[0];
+  touchstartY=touch.pageX;
+
+switch ( event.touches.length ) {
+
+case 1:	
+this.moveForward = true;
+
+break;
+
+case 2:	
+this.moveBackward = true; 
+break;
+
+default:	
+
+}
+}
+
+
+this.mouseDragOn = true;    //鼠标拖动
+
+
+console.log("touchstart");
+
+
+}
+
+function onDocumentTouchEnd( event ) {
+
+console.log("touchend");
+
+isUserInteracting = false;
+
+
+
+//console.log(event.touches.length);
+
+ this.moveForward = false; 
+ this.moveBackward = false; 
+
+this.mouseDragOn = false;
+}
+
+
+function onDocumentTouchMove( event ) {
+
+console.log("touchmove");
+
+if ( isUserInteracting === true ) {
+  var clientX = event.clientX || event.touches[ 0 ].clientX;
+  var clientY = event.clientY || event.touches[ 0 ].clientY;
+  lon = ( onMouseDownMouseX - clientX ) * 0.1 + onMouseDownLon;
+  lat = ( clientY - onMouseDownMouseY ) * 0.1 + onMouseDownLat;
 }
 
 }
 
-function onDocumentTouchMove(event) {
-
-if (event.touches.length === 1) {
-
-    event.preventDefault();
-
-    mouse.x = event.touches[0].pageX - windowHalfX;
-    mouse.y = event.touches[0].pageY - windowHalfY;
-
-}
-
-}
 
     </script>
     alpha:<span id="alpha"></span><br/>
