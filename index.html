@@ -191,8 +191,8 @@ let ismousedown = 0;
 // 添加鼠标移动时事件
 
 // 添加鼠标进入页面时初始化鼠标位置
-container.addEventListener('touchstart', onDocumentTouchStart, false);
-container.addEventListener('touchmove', onDocumentTouchMove, false);
+document.addEventListener('touchstart', onDocumentTouchStart, false);
+document.addEventListener('touchmove', onDocumentTouchMove, false);
 
 function onDocumentTouchStart(event) {
 
